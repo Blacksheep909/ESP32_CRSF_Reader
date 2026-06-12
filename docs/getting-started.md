@@ -20,7 +20,23 @@ Default wiring:
 | GND | GND |
 | Power | Receiver-appropriate power |
 
-## 2. Software
+## 2. Bind The Radio Link First
+
+Before testing the ESP32 code, bind the transmitter/module and receiver exactly like an ExpressLRS FPV drone:
+
+1. Flash or configure both devices with the same major ExpressLRS version.
+2. Use the same binding phrase on transmitter and receiver, or use the traditional bind process.
+3. Confirm the receiver LED/status indicates a live link when the transmitter is on.
+4. Set the receiver serial output/protocol to `CRSF`.
+
+Useful ExpressLRS references:
+
+- [Getting Started](https://www.expresslrs.org/quick-start/getting-started/)
+- [Binding ExpressLRS](https://www.expresslrs.org/quick-start/binding/)
+- [Receiver Wiring](https://www.expresslrs.org/quick-start/receivers/wiring-up/)
+- [Receiver Serial Protocols](https://www.expresslrs.org/software/serial-protocols/)
+
+## 3. Software
 
 Install:
 
@@ -51,7 +67,7 @@ Monitor:
 pio device monitor
 ```
 
-## 3. Expected Output
+## 4. Expected Output
 
 The example prints one line about every 100 ms:
 
@@ -66,7 +82,7 @@ What to look for:
 - Stick movement should change channel values.
 - Switch movement should change some channel values between low/mid/high positions.
 
-## 4. Integrate Into Your Own Project
+## 5. Integrate Into Your Own Project
 
 Include the library:
 
@@ -107,7 +123,7 @@ if (!crsf.linkAlive()) {
 }
 ```
 
-## 5. Channel Indexing
+## 6. Channel Indexing
 
 The API uses zero-based indexes:
 
@@ -118,4 +134,3 @@ The API uses zero-based indexes:
 | 2 | CH3 |
 | 3 | CH4 |
 | 15 | CH16 |
-

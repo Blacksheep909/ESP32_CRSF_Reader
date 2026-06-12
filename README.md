@@ -4,6 +4,8 @@ Small Arduino / PlatformIO library for reading CRSF / ExpressLRS RC channel fram
 
 This code was extracted from my Domino quadruped robot project, where one of the major firmware goals was moving from simpler iBUS-style receiver handling to CRSF. The robot needed a faster, cleaner radio link for mode switching, tilt control, ride-height selection, and failsafe behavior.
 
+> Work in progress: this library currently focuses on reading CRSF RC channel frames. It is useful for bring-up and robot/vehicle control, but it does not implement the full CRSF telemetry/device ecosystem yet.
+
 ## What It Does
 
 - Reads CRSF on ESP32 `Serial2`.
@@ -46,6 +48,23 @@ There are two ways to use this project:
 
 - Copy the library into your own PlatformIO project.
 - Open `examples/basic_receiver` and use it as a known-good test sketch first.
+
+## Radio Link Setup
+
+Getting the radio link together is the same basic workflow as binding an ExpressLRS FPV drone:
+
+1. Set up the transmitter/module and receiver using the normal ExpressLRS tools.
+2. Bind the transmitter and receiver with the same binding phrase, or use the traditional bind process.
+3. Configure the receiver to output `CRSF` serial data.
+4. Wire receiver `TX` to the ESP32 UART RX pin, plus receiver power and common ground.
+5. Flash this example and confirm `link=1` before connecting servos, motors, or robot logic.
+
+Helpful references:
+
+- [ExpressLRS Getting Started](https://www.expresslrs.org/quick-start/getting-started/)
+- [Binding ExpressLRS](https://www.expresslrs.org/quick-start/binding/)
+- [ExpressLRS Receiver Wiring](https://www.expresslrs.org/quick-start/receivers/wiring-up/)
+- [Receiver Serial Protocols](https://www.expresslrs.org/software/serial-protocols/)
 
 Recommended first test:
 
