@@ -132,7 +132,7 @@ Channel indexes are zero-based:
 
 This was built for an ESP32 DevKit reading an ExpressLRS / CRSF receiver as part of a robot dog controller:
 
-- [V10_CRSF_TY90](https://github.com/Blacksheep909/V10_CRSF_TY90)
+- [CarbonQuadruped-ESP32](https://github.com/Blacksheep909/CarbonQuadruped-ESP32)
 
 ## Notes
 
