@@ -1,0 +1,26 @@
+{
+  "name": "ESP32_CRSF_Reader",
+  "version": "0.1.0",
+  "description": "Small Arduino/PlatformIO CRSF and ExpressLRS RC channel reader for ESP32.",
+  "keywords": [
+    "esp32",
+    "crsf",
+    "expresslrs",
+    "rc",
+    "receiver",
+    "robotics"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Blacksheep909/ESP32_CRSF_Reader.git"
+  },
+  "authors": [
+    {
+      "name": "Blacksheep909",
+      "maintainer": true
+    }
+  ],
+  "frameworks": "arduino",
+  "platforms": "espressif32",
+  "headers": "Esp32CrsfReader.h"
+}
