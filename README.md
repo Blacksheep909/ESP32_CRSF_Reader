@@ -2,7 +2,7 @@
 
 Small Arduino / PlatformIO library for reading CRSF / ExpressLRS RC channel frames on an ESP32.
 
-This code was extracted from my V10 quadruped robot project, where one of the major firmware goals was moving from simpler iBUS-style receiver handling to CRSF. The robot needed a faster, cleaner radio link for mode switching, tilt control, ride-height selection, and failsafe behavior.
+This code was extracted from my Domino quadruped robot project, where one of the major firmware goals was moving from simpler iBUS-style receiver handling to CRSF. The robot needed a faster, cleaner radio link for mode switching, tilt control, ride-height selection, and failsafe behavior.
 
 ## What It Does
 
@@ -132,7 +132,7 @@ Channel indexes are zero-based:
 
 This was built for an ESP32 DevKit reading an ExpressLRS / CRSF receiver as part of a robot dog controller:
 
-- [CarbonQuadruped-ESP32](https://github.com/Blacksheep909/CarbonQuadruped-ESP32)
+- [Domino-ESP32-Quadruped](https://github.com/Blacksheep909/Domino-ESP32-Quadruped)
 
 ## Notes
 
