@@ -42,6 +42,20 @@ Most receive-only projects only need the receiver TX line into the ESP32 RX pin,
 
 ## Quick Start
 
+There are two ways to use this project:
+
+- Copy the library into your own PlatformIO project.
+- Open `examples/basic_receiver` and use it as a known-good test sketch first.
+
+Recommended first test:
+
+1. Wire only the ESP32 and receiver.
+2. Flash `examples/basic_receiver`.
+3. Open the serial monitor.
+4. Confirm `link=1`.
+5. Move sticks and switches on the transmitter.
+6. Confirm channel values change before adding any motors, servos, or robot logic.
+
 ```cpp
 #include <Arduino.h>
 #include <Esp32CrsfReader.h>
@@ -85,6 +99,13 @@ pio device monitor
 
 The monitor prints link state, accepted frame count, and all 16 channel values.
 
+## More Guides
+
+- [docs/getting-started.md](docs/getting-started.md) - step-by-step first test.
+- [docs/wiring.md](docs/wiring.md) - ESP32 and receiver wiring.
+- [docs/protocol-notes.md](docs/protocol-notes.md) - what part of CRSF this library implements.
+- [docs/troubleshooting.md](docs/troubleshooting.md) - common setup failures.
+
 ## API
 
 ```cpp
@@ -118,4 +139,3 @@ This was built for an ESP32 DevKit reading an ExpressLRS / CRSF receiver as part
 This is intentionally small and focused. It does not implement the full CRSF ecosystem, telemetry, device discovery, parameter writes, or transmitter backpack features. It is an RC channel reader for projects that need reliable receiver input on ESP32.
 
 No open-source license has been selected yet. Add one before treating this as a reusable public library.
-
