@@ -21,7 +21,7 @@ bool Esp32CrsfReader::begin(HardwareSerial &serial, int rxPin, int txPin, uint32
   frameLen_ = 0;
   framePos_ = 0;
   frameCount_ = 0;
-  lastFrameMs_ = millis();
+  lastFrameMs_ = 0;
   resetChannels();
   return true;
 }
@@ -51,7 +51,7 @@ bool Esp32CrsfReader::linkAlive() const {
 }
 
 bool Esp32CrsfReader::linkAlive(uint32_t nowMs) const {
-  return (nowMs - lastFrameMs_) < timeoutMs_;
+  return (frameCount_ > 0) && ((nowMs - lastFrameMs_) < timeoutMs_);
 }
 
 uint16_t Esp32CrsfReader::channelRaw(uint8_t channelIndex) const {
@@ -144,7 +144,7 @@ bool Esp32CrsfReader::readFrame(uint8_t &type, uint8_t *payload, uint8_t &payloa
 }
 
 void Esp32CrsfReader::acceptRcFrame(const uint8_t *payload, uint32_t nowMs) {
-  unpackChannels11(payload, chRaw_);
+  unpackChannels11(payload, kRcPayloadLen, chRaw_);
 
   const float secondStageAlpha = constrain(filterAlpha_ * 2.0f, 0.0f, 1.0f);
   for (uint8_t i = 0; i < kChannelCount; ++i) {
@@ -175,15 +175,20 @@ int Esp32CrsfReader::crsfToUs(uint16_t value) {
   return 1000 + ((static_cast<int32_t>(value) - 172) * 1000L) / 1639L;
 }
 
-void Esp32CrsfReader::unpackChannels11(const uint8_t *payload, uint16_t *out) {
-  uint32_t bit = 0;
+void Esp32CrsfReader::unpackChannels11(const uint8_t *payload, uint8_t payloadLen, uint16_t *out) {
   for (uint8_t i = 0; i < kChannelCount; ++i) {
-    const uint8_t byteIndex = bit >> 3;
-    const uint32_t window = static_cast<uint32_t>(payload[byteIndex]) |
-                            (static_cast<uint32_t>(payload[byteIndex + 1]) << 8) |
-                            (static_cast<uint32_t>(payload[byteIndex + 2]) << 16);
-    out[i] = (window >> (bit & 7)) & 0x07FF;
-    bit += 11;
+    uint16_t value = 0;
+    const uint32_t channelBitStart = static_cast<uint32_t>(i) * 11U;
+    for (uint8_t bit = 0; bit < 11; ++bit) {
+      const uint32_t srcBit = channelBitStart + bit;
+      const uint8_t byteIndex = srcBit >> 3;
+      if (byteIndex >= payloadLen) {
+        break;
+      }
+      if ((payload[byteIndex] & (1U << (srcBit & 7))) != 0) {
+        value |= (1U << bit);
+      }
+    }
+    out[i] = value;
   }
 }
-

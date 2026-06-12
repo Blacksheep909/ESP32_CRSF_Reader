@@ -5,7 +5,7 @@
 class Esp32CrsfReader {
  public:
   static constexpr uint32_t kDefaultBaud = 420000;
-  static constexpr uint32_t kDefaultTimeoutMs = 250;
+  static constexpr uint32_t kDefaultTimeoutMs = 1000;
   static constexpr uint8_t kChannelCount = 16;
 
   Esp32CrsfReader();
@@ -64,6 +64,5 @@ class Esp32CrsfReader {
 
   static uint8_t crc8DvbS2(const uint8_t *buf, int len);
   static int crsfToUs(uint16_t value);
-  static void unpackChannels11(const uint8_t *payload, uint16_t *out);
+  static void unpackChannels11(const uint8_t *payload, uint8_t payloadLen, uint16_t *out);
 };
-
