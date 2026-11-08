@@ -157,4 +157,6 @@ This was built for an ESP32 DevKit reading an ExpressLRS / CRSF receiver as part
 
 This is intentionally small and focused. It does not implement the full CRSF ecosystem, telemetry, device discovery, parameter writes, or transmitter backpack features. It is an RC channel reader for projects that need reliable receiver input on ESP32.
 
-No open-source license has been selected yet. Add one before treating this as a reusable public library.
+## License
+
+MIT. See [LICENSE](LICENSE). Issues and pull requests are welcome.
